@@ -1,0 +1,7 @@
+target/
+bin/
+*.class
+*.log
+.DS_Store
+db.properties
+.env

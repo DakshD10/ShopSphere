@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Servlet Basics - Lab Portal</title>
+    <style>
+        :root {
+            --primary: #0284c7;
+            --primary-hover: #0369a1;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --accent: #10b981;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        header {
+            margin-bottom: 32px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 20px;
+        }
+        h1 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin: 0 0 8px 0;
+        }
+        p.subtitle {
+            color: var(--text-muted);
+            margin: 0;
+            font-size: 1rem;
+        }
+        .badge {
+            display: inline-block;
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card h2 {
+            font-size: 1.2rem;
+            margin-top: 0;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin: 8px 0 16px 0;
+        }
+        .task-num {
+            background: var(--primary);
+            color: white;
+            font-size: 0.75rem;
+            width: 22px;
+            height: 22px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: var(--primary-hover);
+        }
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #334155;
+        }
+        .btn-secondary:hover {
+            background: #cbd5e1;
+        }
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+        }
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+        .actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: auto;
+        }
+        .inline-form {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .inline-form input {
+            padding: 6px 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            flex: 1;
+        }
+        .section-header {
+            font-size: 1.3rem;
+            color: #334155;
+            margin: 28px 0 16px 0;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--border);
+        }
+        footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <span class="badge">Apache Tomcat 11 &bull; Jakarta Servlet 6.1</span>
+        <h1>Experiment 5 &mdash; Java Servlet Basics</h1>
+        <p class="subtitle">Complete implementation of the syllabus tasks and architectural concepts from the professor PDF (<code>Servlet (1).pdf</code>).</p>
+    </header>
+
+    <div class="section-header">Practical Tasks (PDF Section 38 Audit)</div>
+    <div class="grid">
+        <!-- Task 1: HelloServlet doGet -->
+        <div class="card">
+            <div>
+                <h2><span class="task-num">1</span> HelloServlet (doGet)</h2>
+                <p>Maps to <code>/hello</code>. Handles HTTP GET requests and responds with formatted HTML. Also accepts optional GET query parameter <code>?name=...</code>.</p>
+                <form action="hello" method="get" class="inline-form">
+                    <input type="text" name="name" placeholder="Enter name (e.g. Jahanvi)">
+                    <button type="submit" class="btn">Test GET</button>
+                </form>
+            </div>
+            <div class="actions" style="margin-top: 14px;">
+                <a href="hello" class="btn btn-secondary">Raw GET /hello</a>
+            </div>
+        </div>
+
+        <!-- Task 2 & 3: Student Form POST & getParameter -->
+        <div class="card">
+            <div>
+                <h2><span class="task-num">2</span> Student Form (POST)</h2>
+                <p>Submits student form with POST to <code>/student</code>. Server extracts <code>name</code>, <code>email</code>, and <code>course</code> using <code>request.getParameter()</code> and stores the student into session.</p>
+            </div>
+            <div class="actions">
+                <a href="student-form.html" class="btn">Open Student Form (POST)</a>
+            </div>
+        </div>
+
+        <!-- Task 4: HttpSession & Auth Flow -->
+        <div class="card">
+            <div>
+                <h2><span class="task-num">3</span> HttpSession & Login Flow</h2>
+                <p>PDF Section 33: Login form submitting credentials (<code>admin</code> / <code>1234</code>) to <code>LoginServlet</code> (<code>/login</code>) which creates an <code>HttpSession</code> and stores <code>username</code>.</p>
+            </div>
+            <div class="actions">
+                <a href="login.html" class="btn">Open Student Login Form</a>
+                <a href="home" class="btn btn-secondary">Access /home directly</a>
+            </div>
+        </div>
+
+        <!-- Task 5: Logout session.invalidate -->
+        <div class="card">
+            <div>
+                <h2><span class="task-num">4</span> Logout (session.invalidate)</h2>
+                <p>Calls <code>LogoutServlet</code> at <code>/logout</code>. Destroys the active session using <code>session.invalidate()</code> so subsequent attempts to access <code>/home</code> are blocked.</p>
+            </div>
+            <div class="actions">
+                <a href="logout" class="btn btn-danger">Execute Logout (/logout)</a>
+            </div>
+        </div>
+
+        <!-- Task 6 & 7: Filters & Listeners -->
+        <div class="card">
+            <div>
+                <h2><span class="task-num">5</span> Filters & Request Interception</h2>
+                <p>
+                    &bull; <strong>MyFilter (/*)</strong>: Intercepts all requests, logs request URIs to server logs, and delegates via <code>chain.doFilter()</code>.<br>
+                    &bull; <strong>AuthFilter (/home)</strong>: Guards protected <code>HomeServlet</code>. Redirects unauthenticated requests to login.
+                </p>
+            </div>
+            <div class="actions">
+                <a href="home" class="btn">Test Protected Resource (/home)</a>
+            </div>
+        </div>
+
+        <!-- Task 8: Listeners -->
+        <div class="card">
+            <div>
+                <h2><span class="task-num">6</span> Event Listeners</h2>
+                <p>
+                    &bull; <strong>AppListener</strong>: Implements <code>ServletContextListener</code> (logs "Application Started" and "Application Stopped").<br>
+                    &bull; <strong>SessionListener</strong>: Implements <code>HttpSessionListener</code> (logs "Session Created" and "Session Destroyed").
+                </p>
+            </div>
+            <div class="actions">
+                <a href="login.html" class="btn btn-secondary">Trigger Session Event</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-header">Theory Demonstrations & Comparisons (PDF Sections 18–27)</div>
+    <div class="grid">
+        <!-- LifeCycleServlet -->
+        <div class="card">
+            <div>
+                <h2>Servlet Life Cycle (Sec 18 & 19)</h2>
+                <p>Live demonstration of <code>init()</code>, <code>service()</code>, <code>doGet()</code>, and <code>destroy()</code>. Displays request count, initialization timestamp, and container lifecycle explanation.</p>
+            </div>
+            <div class="actions">
+                <a href="lifecycle" class="btn">View Lifecycle Demo (/lifecycle)</a>
+            </div>
+        </div>
+
+        <!-- Config vs Context -->
+        <div class="card">
+            <div>
+                <h2>ServletConfig vs ServletContext (Sec 20–22)</h2>
+                <p>Interactive table comparing <code>ServletConfig</code> (Servlet-specific parameters) with <code>ServletContext</code> (Application-wide parameters from <code>web.xml</code> and container runtime info).</p>
+            </div>
+            <div class="actions">
+                <a href="config-context" class="btn">View Config vs Context (/config-context)</a>
+            </div>
+        </div>
+
+        <!-- Cookies vs Session -->
+        <div class="card">
+            <div>
+                <h2>Cookies vs HttpSession (Sec 24 & 27)</h2>
+                <p>Demonstrates client-side Cookies (<code>response.addCookie()</code>, <code>request.getCookies()</code>) contrasted with server-side <code>HttpSession</code>.</p>
+            </div>
+            <div class="actions">
+                <a href="cookies" class="btn">View Cookies Demo (/cookies)</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Package: <code>com.servlet</code> &bull; Built with Maven &bull; Targets Apache Tomcat 11 (Jakarta namespace)
+    </footer>
+</div>
+</body>
+</html>
