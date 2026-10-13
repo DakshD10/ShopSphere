@@ -164,7 +164,7 @@
                                         <td class="fw-bold">₹<fmt:formatNumber value="${p.price}" pattern="#,##0.00"/></td>
                                         <td>
                                             <c:choose>
-                                                <c:when test="${p.discount > 0}"><span class="badge bg-danger-subtle text-danger">-${p.discount.intValue()}%</span></c:when>
+                                                <c:when test="${p.discount > 0}"><span class="badge bg-danger-subtle text-danger">-${p.discountPercent}%</span></c:when>
                                                 <c:otherwise><span class="text-muted small">None</span></c:otherwise>
                                             </c:choose>
                                         </td>

@@ -39,13 +39,12 @@
                                 <c:forEach items="${addresses}" var="addr" varStatus="st">
                                     <div class="form-check p-3 border rounded-3 mb-2 bg-light">
                                         <input class="form-check-input" type="radio" name="addressOption" id="addr_${addr.addressId}" 
-                                               value="existing" ${st.first ? 'checked' : ''} onchange="toggleAddressMode(false)">
+                                               value="${addr.addressId}" ${st.first ? 'checked' : ''} onchange="toggleAddressMode(false)">
                                         <label class="form-check-label w-100 ps-2" for="addr_${addr.addressId}">
                                             <span class="badge bg-secondary-subtle text-secondary mb-1"><c:out value="${addr.addressType}"/></span>
                                             <div class="fw-semibold text-dark"><c:out value="${addr.addressLine}"/></div>
                                             <small class="text-muted"><c:out value="${addr.city}"/>, <c:out value="${addr.state}"/> - <c:out value="${addr.pincode}"/></small>
                                         </label>
-                                        <input type="hidden" name="addressId" value="${addr.addressId}">
                                     </div>
                                 </c:forEach>
                             </div>

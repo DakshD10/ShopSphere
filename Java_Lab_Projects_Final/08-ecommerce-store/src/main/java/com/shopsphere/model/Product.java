@@ -153,6 +153,10 @@ public class Product implements Serializable {
         return status && stock > 0;
     }
 
+    public int getDiscountPercent() {
+        return (int) Math.round(discount);
+    }
+
     @Override
     public String toString() {
         return "Product{" +

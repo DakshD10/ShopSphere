@@ -81,7 +81,7 @@ public class CheckoutServlet extends HttpServlet {
 
         try {
             Integer selectedAddressId = null;
-            String addressOption = req.getParameter("addressOption"); // "existing" or "new"
+            String addressOption = req.getParameter("addressOption"); // addressId string or "new"
 
             if ("new".equalsIgnoreCase(addressOption)) {
                 String line = req.getParameter("newAddressLine");
@@ -98,10 +98,18 @@ public class CheckoutServlet extends HttpServlet {
                 Address newAddr = new Address(0, user.getUserId(), line.trim(), city.trim(), state.trim(), pincode.trim(), type);
                 int generatedAddrId = addressDAO.createAddress(newAddr);
                 selectedAddressId = generatedAddrId > 0 ? generatedAddrId : null;
-            } else {
+            } else if (addressOption != null && !addressOption.trim().isEmpty() && !"existing".equalsIgnoreCase(addressOption)) {
+                try {
+                    selectedAddressId = Integer.parseInt(addressOption.trim());
+                } catch (NumberFormatException ignored) {}
+            }
+
+            if (selectedAddressId == null && !"new".equalsIgnoreCase(addressOption)) {
                 String addrStr = req.getParameter("addressId");
                 if (addrStr != null && !addrStr.trim().isEmpty()) {
-                    selectedAddressId = Integer.parseInt(addrStr.trim());
+                    try {
+                        selectedAddressId = Integer.parseInt(addrStr.trim());
+                    } catch (NumberFormatException ignored) {}
                 }
             }
 

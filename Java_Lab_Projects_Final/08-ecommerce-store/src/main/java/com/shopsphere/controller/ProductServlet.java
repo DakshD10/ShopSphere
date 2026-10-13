@@ -21,7 +21,7 @@ import java.util.List;
  * Controller for product catalog, search, category filtering, and sorting.
  * Maps to root ("/") and "/products".
  */
-@WebServlet(name = "ProductServlet", urlPatterns = {"/", "/products"})
+@WebServlet(name = "ProductServlet", urlPatterns = {"/products", "/index"})
 public class ProductServlet extends HttpServlet {
 
     private ProductService productService;

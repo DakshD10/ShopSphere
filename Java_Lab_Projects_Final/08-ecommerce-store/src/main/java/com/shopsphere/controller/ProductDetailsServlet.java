@@ -23,7 +23,7 @@ import java.util.Set;
  * Controller displaying detailed product information, customer reviews, and ratings.
  * Also manages the 'ss_recent_views' cookie for convenience product history.
  */
-@WebServlet(name = "ProductDetailsServlet", urlPatterns = {"/product-details"})
+@WebServlet(name = "ProductDetailsServlet", urlPatterns = {"/product", "/product-details"})
 public class ProductDetailsServlet extends HttpServlet {
 
     private static final String COOKIE_RECENT_VIEWS = "ss_recent_views";

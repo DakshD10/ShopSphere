@@ -142,7 +142,7 @@
                                                      onerror="this.src='https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600'">
                                             </a>
                                             <c:if test="${p.discount > 0}">
-                                                <span class="badge-discount">-${p.discount.intValue()}% OFF</span>
+                                                <span class="badge-discount">-${p.discountPercent}% OFF</span>
                                             </c:if>
                                         </div>
 
